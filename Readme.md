@@ -1,7 +1,9 @@
 # Getting Started
-- Overview
-- Authentication
-- Repositories
+- [Overview](#Overview)
+- [Authentication](#Authentication)
+- [Product Information](#Product-Information)
+- [Using this repository](#Using-this-repository)
+- [Date management](#Date-management)
 
 Lets walkthrough the core API concepts as we tackle the use cases.
 
@@ -16,16 +18,12 @@ We will provide code samples in nodejs and javascript for web.
 The Authentication is done via Oauth2 protocol .
  - We provide you with a ```client_id``` and ```client_secret```.
  - Please contact your SE contact person to make sure you have this information.
-
 - [Refer to API Spec](https://.....)
 
 <p data-height="454" data-theme-id="light" data-slug-hash="gKeqgL" data-default-tab="js,result" data-user="siddharathan" data-embed-version="2" data-pen-title="Authenticate to MySE" class="codepen">See the Pen <a href="https://codepen.io/siddharathan/pen/gKeqgL/">Authenticate to MySE</a> by siddharatha nagavarapu (<a href="https://codepen.io/siddharathan">@siddharathan</a>) on <a href="https://codepen.io">CodePen</a>.</p>
 <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
 
-
-- [See codepen](https://codepen.io/siddharathan/pen/gKeqgL)
-
-# Product Information
+# Product-Information
 
 Most applications will use an existing wrapper library in the language of your choice. We propose a nodejs implementation, this can be converted to your front-end application easily.
 
@@ -61,11 +59,10 @@ Complete code [here](https://github.com/siddharatha/MySEServices/blob/master/get
 - clone this repository.
 - update config/credentials.json with your client_id and client_secret
 - update config/testdata.json with the products, shipped info and quantity.
-``` sh
 
+``` sh
 npm install
 npm run getProductInfo
-
 ```
 
 The results are stored in the results folder.
@@ -73,6 +70,12 @@ The results are stored in the results folder.
 # Date management
 Date formatting across multiple services is achieved with basic formatting functions available.
 
+``` js
+var sampleresponsedate = new Date().toUTCString()
+'Thu, 21 Jun 2018 17:23:46 GMT'
+var parsedate = new Date(y).toLocaleString();
+'2018-6-21'
+```
 
 # API Reference
 Link to the API reference [here](https://api...)
