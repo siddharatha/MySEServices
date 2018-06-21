@@ -19,7 +19,10 @@ The Authentication is done via Oauth2 protocol .
 
 - [Refer to API Spec](https://.....)
 
-codepen[gKeqgL][350]
+<p data-height="454" data-theme-id="light" data-slug-hash="gKeqgL" data-default-tab="js,result" data-user="siddharathan" data-embed-version="2" data-pen-title="Authenticate to MySE" class="codepen">See the Pen <a href="https://codepen.io/siddharathan/pen/gKeqgL/">Authenticate to MySE</a> by siddharatha nagavarapu (<a href="https://codepen.io/siddharathan">@siddharathan</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+
 - [See codepen](https://codepen.io/siddharathan/pen/gKeqgL)
 
 # Product Information
@@ -61,7 +64,7 @@ Complete code [here](https://github.com/siddharatha/MySEServices/blob/master/get
 ``` sh
 
 npm install
-npm run getProductInfoFromMySEAPI
+npm run getProductInfo
 
 ```
 
