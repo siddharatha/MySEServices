@@ -18,9 +18,9 @@ We will provide code samples in nodejs and javascript for web.
 The Authentication is done via Oauth2 protocol .
  - We provide you with a ```client_id``` and ```client_secret```.
  - Please contact your SE contact person to make sure you have this information.
-- [Refer to API Spec](https://.....)
+- [Refer to API Spec](https://github.com/siddharatha/MySEServices/blob/master/openAPI.2.0-ProductAvailability.json)
 
-<p data-height="454" data-theme-id="light" data-slug-hash="gKeqgL" data-default-tab="js,result" data-user="siddharathan" data-embed-version="2" data-pen-title="Authenticate to MySE" class="codepen">See the Pen <a href="https://codepen.io/siddharathan/pen/gKeqgL/">Authenticate to MySE</a> by siddharatha nagavarapu (<a href="https://codepen.io/siddharathan">@siddharathan</a>) on <a href="https://codepen.io">CodePen</a>.</p>
+<p data-height="966" data-theme-id="light" data-slug-hash="gKeqgL" data-default-tab="js,result" data-user="siddharathan" data-embed-version="2" data-pen-title="Authenticate to MySE" class="codepen">See the Pen <a href="https://codepen.io/siddharathan/pen/gKeqgL/">Authenticate to MySE</a> by siddharatha nagavarapu (<a href="https://codepen.io/siddharathan">@siddharathan</a>) on <a href="https://codepen.io">CodePen</a>.</p>
 <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
 
 # Product-Information
@@ -78,4 +78,4 @@ var parsedate = new Date(y).toLocaleString();
 ```
 
 # API Reference
-Link to the API reference [here](https://api...)
+- [Refer to API Spec](https://github.com/siddharatha/MySEServices/blob/master/openAPI.2.0-ProductAvailability.json)

@@ -1,0 +1,259 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "ProductAvailability",
+    "description": "Product Availability API will let you retrieve delivery date on requested quantity by entering one commercial reference at a time"
+  },
+  "host": "api-prd.schneider-electric.com",
+  "basePath": "/productavailability/1.0",
+  "schemes": [
+    "https"
+  ],
+  "security": [
+    {
+      "OAuth2": [
+        "read_product"
+      ]
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/products/{productReference}": {
+      "get": {
+        "summary": "To get Product Availability",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ProductAvailability"
+        ],
+        "parameters": [
+          {
+            "name": "productReference",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Product Reference for which availability is requested. Eg; LXM28AU01M3X",
+            "x-example": "LXM28AU01M3X"
+          },
+          {
+            "name": "quantity",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "description": "Quantity of Product for which availability is requested. Eg; 20, 30",
+            "x-example": 20
+          },
+          {
+            "name": "shipTo",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]*$",
+            "maxLength": 10,
+            "description": "This parameter is not mandatory, restricted to some countries. It represents the Ship to Address. The list of valid codes will be provided by your Schneider Electric contact. Eg; '1000033834'",
+            "x-example": "1000033834"
+          },
+          {
+            "name": "purchaserID",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9]*$",
+            "maxLength": 10,
+            "description": "This parameter is not mandatory and is only needed if you have multiple different Account ID as indicated by your Schneider Electric contact.  Otherwise, please ignore this parameter. Eg; '1000053298'",
+            "x-example": "1000053298"
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "pattern": "^[A-Z][A-Z]$",
+            "description": "This parameter is not mandatory and is only required if your account spans over multiple countries. The expected value is an ISO country two letters' code. Eg; 'FR'",
+            "x-example": "FR"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK. The result is send in an array format to consider countries for which Staging orders are allowed :an order of 40 can be send in 3 steps, 12 then 10 then 18 like in the provided example.",
+            "schema": {
+              "$ref": "#/definitions/AvailabilityResult"
+            }
+          },
+          "400": {
+            "description": "Mandatory input is missing",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "401": {
+            "description": "Invalid or missing credentials. \n\t Eg;{\"fault\":{\"code\":\"900901,\"description\": \"Invalid credentials\"}} \n\t or \n\t {\"fault\":{\"code\":\"900902,\"description\": \"Missing credentials\"}}",
+            "schema": {
+              "$ref": "#/definitions/Error401"
+            }
+          },
+          "404": {
+            "description": "\"An error to convey that the Availability could not be retrieved because of an invalid Product Ref or Purchaser ID or Ship To.\\n The possible Error Codes are: \n\t PRODUCT_NOT_FOUND \n\t PURCHASER_NOT_FOUND \n\t PRODUCT_NOT_AVAILABLE \n\t PRODUCT_REPLACED \n\t SHIP_TO_NOT_FOUND\". \n\t Eg; {\"errorcode\":\"PRODUCT_NOT_FOUND,\"errorMessage\": \"This Product reference is not known\"} \n\t or \n\t {\"errorcode\":\"SHIP_TO_NOT_FOUND\",\"errorMessage\": \"ShipTo code is not known\"} \n\t or \n\t {\"errorcode\":\"PURCHASER_NOT_FOUND\",\"errorMessage\": \"Purchaser ID does not exist\"} \n\t or \n\t {\"errorcode\":\"PRODUCT_NOT_AVAILABLE\",\"errorMessage\": \"Product is not Available for Purchase\"} \n\t or \n\t {\"errorcode\":\"PRODUCT_REPLACED\",\"errorMessage\": \"Product has been replaced\"}",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "The requested URL does not exists or the API is not available right now.\n\tEg;{\"errorcode\":\"INTERNAL SERVER ERROR,\"errorMessage\": \"This information is not available right now\"}",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "OAuth2": {
+      "description": "Oauth2 Application security",
+      "type": "oauth2",
+      "tokenUrl": "https://api-prd.schneider-electric.com/token",
+      "flow": "application",
+      "scopes": {
+        "read_product": "access product information"
+      }
+    }
+  },
+  "definitions": {
+    "AvailabilityResult": {
+      "type": "object",
+      "example": {
+        "productRef": "LXM28AU01M3X",
+        "quantity": 40,
+        "shipTo": 1000033834,
+        "availabilities": [
+          {
+            "quantity": 12,
+            "deliveryDate": "2018-05-04"
+          },
+          {
+            "quantity": 10,
+            "deliveryDate": "2018-05-15"
+          },
+          {
+            "quantity": 18,
+            "deliveryDate": "2018-06-04"
+          }
+        ]
+      },
+      "properties": {
+        "productRef": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "number"
+        },
+        "ship-to": {
+          "type": "string",
+          "description": "The ship to Address code"
+        },
+        "availabilities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "quantity": {
+                "type": "number",
+                "description": "The number of product units that can be delivered at the associated DeliveryDate"
+              },
+              "deliveryDate": {
+                "type": "string",
+                "description": "Delivery Date based on calculated availability date or standard lead time provided by Schneider Electric logistic Offer"
+              }
+            }
+          }
+        }
+      },
+      "description": "Result of an availability request stating the delivery date of the product to the ship-to address. The result is send in an array format to consider countries for which Staging orders are allowed :an order of 40 can be send in 3 steps, 12 then 10 then 18 like in the provided example"
+    },
+    "Error401": {
+      "type": "object",
+      "description": "Missing Credentials",
+      "example": {
+        "fault": {
+          "code": 900902,
+          "description": "Missing Credentials"
+        }
+      },
+      "properties": {
+        "fault": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string",
+              "example": 900902
+            },
+            "description": {
+              "type": "string",
+              "example": "Missing Credentials"
+            }
+          }
+        }
+      }
+    },
+    "Error404": {
+      "type": "object",
+      "example": {
+        "errorCode": "PRODUCT_NOT_FOUND",
+        "errorMessage": "This Product reference is not known"
+      },
+      "required": [
+        "errorCode"
+      ],
+      "properties": {
+        "errorCode": {
+          "type": "string",
+          "example": "PRODUCT_NOT_FOUND"
+        },
+        "errorMessage": {
+          "type": "string",
+          "example": "This Product reference is not known"
+        }
+      }
+    },
+    "Error500": {
+      "type": "object",
+      "required": [
+        "errorCode"
+      ],
+      "properties": {
+        "errorCode": {
+          "type": "string",
+          "example": "INTERNAL SERVER ERROR"
+        },
+        "errorMessage": {
+          "type": "string",
+          "example": "This information is not available right now"
+        }
+      }
+    },
+    "Error400": {
+      "type": "object",
+      "required": [
+        "errorCode"
+      ],
+      "properties": {
+        "errorCode": {
+          "type": "string",
+          "example": "BAD_REQUEST"
+        },
+        "errorMessage": {
+          "type": "string",
+          "example": "Mandatory input missing"
+        }
+      }
+    }
+  }
+}
