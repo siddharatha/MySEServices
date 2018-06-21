@@ -22,15 +22,54 @@ The Authentication is done via Oauth2 protocol .
 codepen[gKeqgL][350]
 - [See codepen](https://codepen.io/siddharathan/pen/gKeqgL)
 
-Most applications will use an existing wrapper library in the language of your choice. But its important to familarize yourself with the underlying HTTP methods.
-
-# MySE Services
-The services allow user 
-
-# Authentication
-
 # Product Information
 
+Most applications will use an existing wrapper library in the language of your choice. We propose a nodejs implementation, this can be converted to your front-end application easily.
+
+Using the library provided in this repository , you can get the product information with the below few lines
+
+Complete code [here](https://github.com/siddharatha/MySEServices/blob/master/getInfoFromMySEAPI.js)
+
+``` js
+        (async function () {
+    try {
+        alltestdata = await generateTestdata('./config/testdata.json');
+        const { token, api_endpoint } = await apiConnection('./config/credentials.json');
+        Promise.map(alltestdata, eachTestData => {
+            return getProductInfoFromAPI(api_endpoint, token, eachTestData.product, _.toString(eachTestData.quantity), _.toString(eachTestData.shipTo));
+        })
+            .then(data => {
+                // you can write the responses to a file or use the response to be displayed on a browser.
+                fs.writeJSONSync('./results/apiResults.json', data, { spaces: 2 });
+            })
+            .catch(console.error);
+    }
+    catch (ex) {
+        console.log(ex);
+    }
+})();
+
+```
+
+# Using this repository
+
+- Make sure you have nodejs installed.
+- nodejs comes with npm - node package manager.
+- clone this repository.
+- update config/credentials.json with your client_id and client_secret
+- update config/testdata.json with the products, shipped info and quantity.
+``` sh
+
+npm install
+npm run getProductInfoFromMySEAPI
+
+```
+
+The results are stored in the results folder.
+
 # Date management
+Date formatting across multiple services is achieved with basic formatting functions available.
+
 
 # API Reference
+Link to the API reference [here](https://api...)
