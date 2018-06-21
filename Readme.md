@@ -60,9 +60,9 @@ Complete code [here](https://github.com/siddharatha/MySEServices/blob/master/get
 - update config/credentials.json with your client_id and client_secret
 - update config/testdata.json with the products, shipped info and quantity.
 
-``` sh
-npm install
-npm run getProductInfo
+``` bash
+    npm install
+    npm run getProductInfo
 ```
 
 The results are stored in the results folder.
