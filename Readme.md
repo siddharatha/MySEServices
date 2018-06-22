@@ -4,12 +4,18 @@
 - [Product Information](#Product-Information)
 - [Using this repository](#Using-this-repository)
 - [Date management](#Date-management)
+- [API Reference](https://api-explorer.se.com/)
 
 Lets walkthrough the core API concepts as we tackle the use cases.
 
 # Overview
 
-The API aims to provide services to get the stock information of a product.
+The [Product-Availability API](https://api-explorer.se.com/) aims to provide services to get the stock information of a product.
+
+The key prerequisites to proceed are 
+- ```client_id``` and ```client_secret``` provided by your SE.com contact point
+- Product References of SE.com
+- ShipTo information of different locations you manage.
 
 We will provide code samples in nodejs and javascript for web. 
 
@@ -18,7 +24,7 @@ We will provide code samples in nodejs and javascript for web.
 The Authentication is done via Oauth2 protocol .
  - We provide you with a ```client_id``` and ```client_secret```.
  - Please contact your SE contact person to make sure you have this information.
-- [Refer to API Spec](https://github.com/siddharatha/MySEServices/blob/master/openAPI.2.0-ProductAvailability.json)
+- [Refer to API Spec](https://api-explorer.se.com/)
 
 <p data-height="966" data-theme-id="light" data-slug-hash="gKeqgL" data-default-tab="js,result" data-user="siddharathan" data-embed-version="2" data-pen-title="Authenticate to MySE" class="codepen">See the Pen <a href="https://codepen.io/siddharathan/pen/gKeqgL/">Authenticate to MySE</a> by siddharatha nagavarapu (<a href="https://codepen.io/siddharathan">@siddharathan</a>) on <a href="https://codepen.io">CodePen</a>.</p>
 <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
@@ -73,9 +79,6 @@ Date formatting across multiple services is achieved with basic formatting funct
 ``` js
 var sampleresponsedate = new Date().toUTCString()
 'Thu, 21 Jun 2018 17:23:46 GMT'
-var parsedate = new Date(y).toLocaleString();
+var parsedate = new Date(sampleresponsedate).toLocaleString();
 '2018-6-21'
 ```
-
-# API Reference
-- [Refer to API Spec](https://github.com/siddharatha/MySEServices/blob/master/openAPI.2.0-ProductAvailability.json)
